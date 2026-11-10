@@ -1,0 +1,25 @@
+# Dependencies (re-downloaded with npm install, never committed)
+node_modules/
+
+# Environment variables: these hold passwords and secret keys
+.env
+.env.*
+!.env.example
+
+# Build output (generated automatically)
+.next/
+dist/
+build/
+out/
+
+# Test reports
+coverage/
+playwright-report/
+test-results/
+
+# Logs
+*.log
+
+# Operating system junk
+.DS_Store
+Thumbs.db
