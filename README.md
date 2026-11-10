@@ -5,11 +5,11 @@ Job management software for small field-service businesses (HVAC, plumbing, elec
 CrewDesk helps owners and dispatchers schedule jobs, assign technicians,
 track work in the field, and invoice customers, all in one place.
 
-> **Status:** Early development (Sprint 0). No features are implemented yet.
+> **Status:** Early development (Sprint 0). The web app runs locally and shows the Next.js starter page. No product features are implemented yet.
 
 ## Planned Tech Stack
 
-- **Frontend:** Next.js, React, TypeScript
+- **Frontend:** Next.js, React, TypeScript, Tailwind CSS
 - **Backend:** Node.js, Express, TypeScript (REST API)
 - **Database:** PostgreSQL with Prisma ORM
 - **Testing:** Vitest, React Testing Library, Playwright
@@ -23,7 +23,25 @@ track work in the field, and invoice customers, all in one place.
 
 ## Getting Started
 
-Setup instructions will be added as the project is built.
+```bash
+# 1. Install dependencies (run from the repository root)
+npm install
+
+# 2. Start the web app in development mode
+npm run dev
+```
+
+Then open http://localhost:3000.
+
+## Project Structure
+
+```
+crewdesk/
+├── apps/
+│   └── web/          # Next.js frontend (React + TypeScript + Tailwind)
+├── package.json      # Root workspace config and scripts
+└── README.md
+```
 
 ## Author
 

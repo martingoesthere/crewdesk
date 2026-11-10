@@ -1,0 +1,16 @@
+{
+  "name": "crewdesk",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Job management SaaS for field-service businesses",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspace=web"
+  },
+  "engines": {
+    "node": ">=24"
+  }
+}
