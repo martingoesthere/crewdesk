@@ -1,0 +1,15 @@
+# Store all text files with LF (Linux-style) line endings
+* text=auto eol=lf
+
+# Windows scripts must keep CRLF to run correctly
+*.ps1 text eol=crlf
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+# Binary files: never change them
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.webp binary
