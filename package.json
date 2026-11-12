@@ -9,8 +9,10 @@
   ],
   "scripts": {
     "dev": "npm run dev --workspace=web",
-    "build": "npm run build --workspace=web",
-    "lint": "npm run lint --workspace=web"
+    "dev:api": "npm run dev --workspace=api",
+    "build": "npm run build --workspaces",
+    "lint": "npm run lint --workspace=web",
+    "typecheck": "npm run typecheck --workspace=api"
   },
   "engines": {
     "node": ">=24"
