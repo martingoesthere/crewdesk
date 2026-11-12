@@ -1,6 +1,6 @@
 # CrewDesk: Project Handoff
 
-_Last updated: 2026-11-11 (Sprint 0)_
+_Last updated: 2026-11-12 (Sprint 1)_
 
 ## What CrewDesk Is
 
@@ -12,33 +12,37 @@ must stay private from every other company.
 
 - Monorepo using npm workspaces (`apps/*`, `packages/*`)
 - `apps/web`: Next.js 16 starter app (TypeScript, Tailwind CSS, ESLint, App Router)
-- Root scripts: `npm run dev`, `npm run lint`, `npm run build` (all verified passing)
-- **No product features implemented yet.** No API, no database, no auth.
+- `apps/api`: Express 5 + TypeScript (strict, ES modules) with `GET /health` returning `{ "status": "ok" }` on port 4000
+- Root scripts: `dev`, `dev:api`, `build` (all apps), `lint` (web), `typecheck` (api), all verified
+- **No product features yet.** No database, no auth, no business endpoints.
 
 ## Completed Tickets
 
-- **ENG-001:** Environment verified, repository created, first commit pushed to GitHub
-- **ENG-002:** Monorepo + Next.js app scaffolded (PR #1, merged)
+- **ENG-001:** Environment verified, repository created, first push
+- **ENG-002:** Monorepo + Next.js app (PR #1)
+- **ENG-003:** `.gitattributes`, handoff notes, squash-only merging, `main` protected by ruleset (PR #2)
 
 ## In Progress
 
-- **ENG-003:** Repository hygiene (`.gitattributes`, this handoff file, GitHub merge settings)
+- **ENG-004:** Express API with health-check endpoint
 
 ## Key Decisions
 
-| Decision                                                       | Why                                                                                      |
-| -------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
-| Separate Express API (planned) instead of Next.js-only backend | A mobile app for technicians is likely; one API can serve web + mobile                   |
-| PostgreSQL + Prisma (planned)                                  | Highly relational data (company → customers → jobs → invoices); money needs transactions |
-| npm workspaces monorepo                                        | Frontend, API, and shared types change together in one PR                                |
-| Tailwind CSS                                                   | Consistent design across many screens                                                    |
-| Conventional Commits + feature branches + PR review            | Readable history; `main` always holds reviewed code                                      |
+| Decision                                                | Why                                                                    |
+| ------------------------------------------------------- | ---------------------------------------------------------------------- |
+| Separate Express API instead of a Next.js-only backend  | A mobile app for technicians is likely; one API can serve web + mobile |
+| PostgreSQL + Prisma (planned)                           | Highly relational data; money needs transactions                       |
+| npm workspaces monorepo                                 | Frontend, API, and shared types change together in one PR              |
+| TypeScript `strict` mode from day one                   | Turning it on later in a large codebase is expensive                   |
+| ES modules (`"type": "module"`, `NodeNext`) for the API | Current Node.js standard                                               |
+| Squash-only merges, PR required for `main`              | Clean history; `main` always holds reviewed code                       |
 
 ## Known Issues / Tech Debt
 
-- `npm install` reports 7 moderate vulnerabilities (needs a security review ticket; do not auto-fix)
-- `eslint@9` deprecation warning from the generator
-- `npm install` is slow on this machine (likely antivirus scanning `node_modules`)
+- Earlier `npm install` reported 7 moderate vulnerabilities; later installs reported 0. Confirm with `npm audit` in a security ticket
+- `eslint@9` deprecation warning from the Next.js generator
+- `esbuild` install script is not approved (npm `allowScripts`); `tsx` works without it, so it is left unapproved
+- The API has no linter yet (type-checked only)
 
 ## Local Environment Notes (Windows)
 
@@ -47,17 +51,8 @@ must stay private from every other company.
 - If `Could not resolve host` appears: run `Get-DnsClientNrptPolicy`. A leftover VPN rule
   pointing to `10.2.0.1` breaks DNS. Fix: connect, then disconnect the VPN.
 
-## How to Run
-
-```bash
-npm install
-npm run dev     # http://localhost:3000
-npm run lint
-npm run build
-```
-
 ## Next Steps
 
-1. Finish ENG-003 and merge with **Squash and merge**
-2. Set up the Express API in `apps/api`
-3. Set up PostgreSQL (Docker) and Prisma
+1. Merge ENG-004
+2. Set up PostgreSQL locally with Docker
+3. Add Prisma and the first database models (companies, users)
