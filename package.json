@@ -16,7 +16,8 @@
     "db:up": "docker compose up -d",
     "db:down": "docker compose down",
     "db:psql": "docker compose exec db psql -U crewdesk -d crewdesk_dev",
-    "db:generate": "npm exec --workspace=api -- prisma generate"
+    "db:generate": "npm exec --workspace=api -- prisma generate",
+    "db:migrate": "npm exec --workspace=api -- prisma migrate dev"
   },
   "engines": {
     "node": ">=24"

@@ -5,7 +5,7 @@ Job management software for small field-service businesses (HVAC, plumbing, elec
 CrewDesk helps owners and dispatchers schedule jobs, assign technicians,
 track work in the field, and invoice customers, all in one place.
 
-> **Status:** Early development (Sprint 1). The web app shows the Next.js starter page. The API connects to a local PostgreSQL database (Docker) through Prisma and exposes a health check. No product features are implemented yet.
+> **Status:** Early development (Sprint 2). The web app shows the Next.js starter page. The API connects to a local PostgreSQL database (Docker) through Prisma, with `companies` and `users` tables and a health check. No product features are implemented yet.
 
 ## Tech Stack
 
@@ -32,32 +32,36 @@ npm install
 cp .env.example .env                    # PowerShell: Copy-Item .env.example .env
 cp apps/api/.env.example apps/api/.env  # PowerShell: Copy-Item apps\api\.env.example apps\api\.env
 
-# 3. Generate the Prisma Client
-npm run db:generate
-
-# 4. Start the database (Docker Desktop must be running)
+# 3. Start the database (Docker Desktop must be running)
 npm run db:up
 
-# 5. Start the web app: http://localhost:3000
+# 4. Create the database tables (runs all migrations)
+npm run db:migrate
+
+# 5. Generate the Prisma Client
+npm run db:generate
+
+# 6. Start the web app: http://localhost:3000
 npm run dev
 
-# 6. Start the API (in a second terminal): http://localhost:4000/health
+# 7. Start the API (in a second terminal): http://localhost:4000/health
 npm run dev:api
 ```
 
 ## Useful Commands
 
-| Command               | What it does                                      |
-| --------------------- | ------------------------------------------------- |
-| `npm run dev`         | Start the web app in development mode             |
-| `npm run dev:api`     | Start the API in development mode                 |
-| `npm run build`       | Build all apps for production                     |
-| `npm run lint`        | Lint the web app                                  |
-| `npm run typecheck`   | Type-check the API                                |
-| `npm run db:up`       | Start the local PostgreSQL database               |
-| `npm run db:down`     | Stop the database (data is kept)                  |
-| `npm run db:psql`     | Open a SQL prompt in the database                 |
-| `npm run db:generate` | Regenerate the Prisma Client after schema changes |
+| Command               | What it does                                       |
+| --------------------- | -------------------------------------------------- |
+| `npm run dev`         | Start the web app in development mode              |
+| `npm run dev:api`     | Start the API in development mode                  |
+| `npm run build`       | Build all apps for production                      |
+| `npm run lint`        | Lint the web app                                   |
+| `npm run typecheck`   | Type-check the API                                 |
+| `npm run db:up`       | Start the local PostgreSQL database                |
+| `npm run db:down`     | Stop the database (data is kept)                   |
+| `npm run db:psql`     | Open a SQL prompt in the database                  |
+| `npm run db:migrate`  | Apply database migrations (creates/updates tables) |
+| `npm run db:generate` | Regenerate the Prisma Client after schema changes  |
 
 ## Project Structure
 
@@ -66,7 +70,7 @@ crewdesk/
 ├── apps/
 │   ├── web/              # Next.js frontend (React + TypeScript + Tailwind)
 │   └── api/              # Express REST API (TypeScript)
-│       ├── prisma/       # Database schema (Prisma)
+│       ├── prisma/       # Database schema and migrations (Prisma)
 │       └── src/          # API source code
 ├── docs/                 # Project documentation (handoff notes)
 ├── docker-compose.yml    # Local PostgreSQL database

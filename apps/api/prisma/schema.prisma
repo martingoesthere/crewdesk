@@ -11,3 +11,38 @@ generator client {
 datasource db {
   provider = "postgresql"
 }
+
+// What a user is allowed to do inside their company
+enum Role {
+  OWNER
+  DISPATCHER
+  TECHNICIAN
+}
+
+// A business using CrewDesk (a "tenant")
+model Company {
+  id        String   @id @default(uuid()) @db.Uuid
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  users User[]
+
+  @@map("companies")
+}
+
+// A person who logs in to CrewDesk
+model User {
+  id        String   @id @default(uuid()) @db.Uuid
+  email     String   @unique
+  name      String
+  role      Role     @default(TECHNICIAN)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  companyId String  @db.Uuid
+  company   Company @relation(fields: [companyId], references: [id], onDelete: Restrict)
+
+  @@index([companyId])
+  @@map("users")
+}
