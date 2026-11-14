@@ -12,6 +12,9 @@ dist/
 build/
 out/
 
+# Generated code (recreated with "prisma generate")
+apps/api/src/generated/
+
 # Test reports
 coverage/
 playwright-report/
