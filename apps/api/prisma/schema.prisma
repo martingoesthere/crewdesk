@@ -1,0 +1,13 @@
+// CrewDesk database schema
+// Docs: https://www.prisma.io/docs/v7
+
+generator client {
+  provider            = "prisma-client"
+  output              = "../src/generated/prisma"
+  moduleFormat        = "esm"
+  importFileExtension = "js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
