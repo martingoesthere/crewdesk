@@ -1,0 +1,45 @@
+name: CI
+
+# When to run: on every pull request, and on every push to main
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  checks:
+    name: Typecheck, lint, test, build
+    runs-on: ubuntu-latest
+
+    env:
+      # Dummy value: db.ts fails fast without it. Tests mock the database,
+      # so nothing ever connects. This is NOT a real password.
+      DATABASE_URL: postgresql://ci:ci@localhost:5432/ci?schema=public
+
+    steps:
+      - name: Check out the code
+        uses: actions/checkout@v5
+
+      - name: Set up Node.js 24
+        uses: actions/setup-node@v5
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Install dependencies (exactly as in package-lock.json)
+        run: npm ci
+
+      - name: Generate Prisma Client
+        run: npm run db:generate
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Test
+        run: npm test
+
+      - name: Build
+        run: npm run build
